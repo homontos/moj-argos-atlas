@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mój Atlas OSINT</title>
-    <!-- Pobieranie sprawdzonych skryptów mapy z serwera unpkg -->
+    <!-- Pobieranie biblioteki mapowej Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com" />
     <script src="https://unpkg.com"></script>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; background-color: #222; font-family: sans-serif; }
+        body, html { margin: 0; padding: 0; height: 100%; background-color: #1a1a1a; font-family: sans-serif; }
         #map { width: 100%; height: 100vh; position: absolute; top: 0; bottom: 0; z-index: 1; }
         .map-title {
             position: absolute; top: 15px; left: 60px; z-index: 9999;
@@ -27,16 +27,16 @@
     <div id="map"></div>
 
     <script>
-        // 1. RYSOWANIE MAPY (Uruchomi się najpierw, bez względu na dane)
-        console.log("Inicjalizacja mapy...");
+        // 1. INICJALIZACJA MAPY - to uruchomi się najpierw i narysuje glob
         const map = L.map('map').setView([20.0, 0.0], 2);
 
-        L.tileLayer('https://openstreetmap.org{z}/{x}/{y}.png', {
+        // Ładowanie standardowego podkładu mapy OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // 2. TWORZENIE WARSTW
+        // 2. TWORZENIE WARSTW NA DANE
         const shipsLayer = L.layerGroup().addTo(map);
         const incidentsLayer = L.layerGroup().addTo(map);
 
@@ -46,30 +46,30 @@
         };
         L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
-        // 3. BEZPIECZNE ŁADOWANIE DANYCH (Jeśli tu wystąpi błąd, mapa i tak będzie działać)
+        // 3. BEZPIECZNE POBIERANIE DANYCH Z PLIKU JSON
         fetch('dane_osint.json')
             .then(response => {
                 if (!response.ok) return { statki: [], incydenty: [] };
                 return response.json();
             })
             .then(data => {
-                console.log("Dane załadowane pomyślnie:", data);
-                
+                // Rysowanie statków przy użyciu standardowych, wbudowanych ikon systemu
                 if (data.statki) {
                     data.statki.forEach(ship => {
                         L.marker([ship.lat, ship.lon]).addTo(shipsLayer)
-                            .bindPopup(`<b>🚢 ${ship.nazwa}</b><br>Bandera: ${ship.bandera}<br>Prędkość: ${ship.predkosc} węzłów`);
+                            .bindPopup(`<b>🚢 ${ship.nazwa}</b><br>Bandera: ${ship.bandera}<br>Kurs: ${ship.kurs}°<br>Prędkość: ${ship.predkosc} węzłów`);
                     });
                 }
                 
+                // Rysowanie incydentów kryzysowych
                 if (data.incydenty) {
                     data.incydenty.forEach(inc => {
                         L.marker([inc.lat, inc.lon]).addTo(incidentsLayer)
-                            .bindPopup(`<b>⚠️ ${inc.tytul}</b><br>${inc.opis}<br><a href="${inc.link}" target="_blank">Źródło ↗</a>`);
+                            .bindPopup(`<b>⚠️ ${inc.tytul}</b><br>${inc.opis}<br><a href="${inc.link}" target="_blank">Zobacz źródło ↗</a>`);
                     });
                 }
             })
-            .catch(err => console.log("Błąd ładowania punktów, ale mapa działa:", err));
+            .catch(err => console.log("Błąd ładowania bazy punktów:", err));
     </script>
 </body>
 </html>
