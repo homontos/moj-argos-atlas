@@ -3,98 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mój Atlas OSINT - Dane Satelitarne i Morskie</title>
-    <!-- Biblioteka Mapowa Leaflet -->
+    <title>Mój Atlas OSINT</title>
+    <!-- Pobieranie sprawdzonych skryptów mapy z serwera unpkg -->
     <link rel="stylesheet" href="https://unpkg.com" />
     <script src="https://unpkg.com"></script>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; background-color: #1a1a1a; font-family: 'Segoe UI', Arial, sans-serif; }
-        #map { width: 100%; height: 100vh; background-color: #1a1a1a; }
+        body, html { margin: 0; padding: 0; height: 100%; background-color: #222; font-family: sans-serif; }
+        #map { width: 100%; height: 100vh; position: absolute; top: 0; bottom: 0; z-index: 1; }
         .map-title {
-            position: absolute; top: 15px; left: 60px; z-index: 1000;
-            background: rgba(30, 30, 30, 0.9); color: #ffffff; padding: 15px; 
-            border-radius: 8px; border: 1px solid #444; backdrop-filter: blur(5px);
+            position: absolute; top: 15px; left: 60px; z-index: 9999;
+            background: rgba(30, 30, 30, 0.9); color: #ffffff; padding: 12px; 
+            border-radius: 6px; border: 1px solid #555;
         }
-        .map-title h2 { margin: 0 0 5px 0; font-size: 18px; color: #00e676; text-transform: uppercase; letter-spacing: 1px; }
-        .map-title p { margin: 0; font-size: 12px; color: #bbb; }
     </style>
 </head>
 <body>
 
     <div class="map-title">
-        <h2>Custom ArgosAtlas v1.0</h2>
-        <p>System automatycznego monitorowania OSINT</p>
+        <h2 style="margin:0; font-size:16px; color:#00e676;">CUSTOM ARGOSATLAS V1.0</h2>
+        <p style="margin:5px 0 0 0; font-size:11px; color:#bbb;">System automatycznego monitorowania OSINT</p>
     </div>
 
     <div id="map"></div>
 
     <script>
-        // Inicjalizacja mapy ze standardowym widokiem na świat
-        const map = L.map('map').setView([20.0, 10.0], 2);
+        // 1. RYSOWANIE MAPY (Uruchomi się najpierw, bez względu na dane)
+        console.log("Inicjalizacja mapy...");
+        const map = L.map('map').setView([20.0, 0.0], 2);
 
-        // Niezawodny, oficjalny podkład mapowy OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://openstreetmap.org{z}/{x}/{y}.png', {
+            maxZoom: 19,
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // Warstwy na dane
+        // 2. TWORZENIE WARSTW
         const shipsLayer = L.layerGroup().addTo(map);
         const incidentsLayer = L.layerGroup().addTo(map);
 
-        // Funkcja pobierająca bazę danych JSON
-        async function loadData() {
-            try {
-                const response = await fetch('dane_osint.json');
-                if (!response.ok) throw new Error('Nie znaleziono jeszcze pliku danych.');
-                const data = await response.json();
-
-                // Rysowanie pozycji statków
-                if (data.statki) {
-                    data.statki.forEach(ship => {
-                        L.marker([ship.lat, ship.lon]) // Standardowy niebieski znacznik mapy
-                            .bindPopup(`
-                                <div style="color: #333;">
-                                    <strong style="color: #0288d1;">🚢 POZYCJA JEDNOSTKI</strong><br><br>
-                                    <b>Nazwa:</b> ${ship.nazwa}<br>
-                                    <b>Bandera:</b> ${ship.bandera}<br>
-                                    <b>Kurs:</b> ${ship.kurs}°<br>
-                                    <b>Prędkość:</b> ${ship.predkosc} węzłów
-                                </div>
-                            `)
-                            .addTo(shipsLayer);
-                    });
-                }
-
-                // Rysowanie incydentów kryzysowych
-                if (data.incydenty) {
-                    data.incydenty.forEach(inc => {
-                        L.marker([inc.lat, inc.lon]) // Standardowy znacznik mapy
-                            .bindPopup(`
-                                <div style="max-width: 250px; color: #333;">
-                                    <strong style="color: #d32f2f;">⚠️ ALERT KRYZYSOWY / OSINT</strong><br><br>
-                                    <b>Tytuł:</b> ${inc.tytul}<br>
-                                    <b>Opis:</b> ${inc.opis}<br><br>
-                                    <a href="${inc.link}" target="_blank" style="color: #d32f2f; font-weight: bold;">Zobacz źródło ↗</a>
-                                </div>
-                            `)
-                            .addTo(incidentsLayer);
-                    });
-                }
-
-            } catch (error) {
-                console.error('Błąd ładowania pliku:', error);
-            }
-        }
-
-        // Uruchomienie pobierania
-        loadData();
-
-        // Panel przełączania widoczności obiektów w prawym górnym rogu
         const overlayMaps = {
-            "🚢 Ruch Statków (AIS)": shipsLayer,
+            "🚢 Ruch Statków": shipsLayer,
             "⚠️ Incydenty i Alerty": incidentsLayer
         };
         L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
+        // 3. BEZPIECZNE ŁADOWANIE DANYCH (Jeśli tu wystąpi błąd, mapa i tak będzie działać)
+        fetch('dane_osint.json')
+            .then(response => {
+                if (!response.ok) return { statki: [], incydenty: [] };
+                return response.json();
+            })
+            .then(data => {
+                console.log("Dane załadowane pomyślnie:", data);
+                
+                if (data.statki) {
+                    data.statki.forEach(ship => {
+                        L.marker([ship.lat, ship.lon]).addTo(shipsLayer)
+                            .bindPopup(`<b>🚢 ${ship.nazwa}</b><br>Bandera: ${ship.bandera}<br>Prędkość: ${ship.predkosc} węzłów`);
+                    });
+                }
+                
+                if (data.incydenty) {
+                    data.incydenty.forEach(inc => {
+                        L.marker([inc.lat, inc.lon]).addTo(incidentsLayer)
+                            .bindPopup(`<b>⚠️ ${inc.tytul}</b><br>${inc.opis}<br><a href="${inc.link}" target="_blank">Źródło ↗</a>`);
+                    });
+                }
+            })
+            .catch(err => console.log("Błąd ładowania punktów, ale mapa działa:", err));
     </script>
 </body>
 </html>
