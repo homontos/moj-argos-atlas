@@ -1,44 +1,44 @@
 {
     "statki": [
         {
-            "nazwa": "MSC AMSTERDAM",
+            "nazwa": "MSC AMSTERDAM (Kontenerowiec)",
             "bandera": "Panama",
-            "kurs": 357,
-            "predkosc": 20.2,
-            "lat": 35.087843118605335,
-            "lon": 15.138970597763905
+            "kurs": 303,
+            "predkosc": 10.8,
+            "lat": 35.11355463250279,
+            "lon": 15.260728030188675
         },
         {
-            "nazwa": "EVER GIVEN",
+            "nazwa": "EVER GIVEN (Cargo)",
             "bandera": "Panama",
-            "kurs": 104,
-            "predkosc": 16.1,
-            "lat": 29.793018625456327,
-            "lon": 32.703939753506624
+            "kurs": 54,
+            "predkosc": 18.9,
+            "lat": 29.89172169444616,
+            "lon": 32.56771348497878
         },
         {
-            "nazwa": "BALTIC CHIEF",
+            "nazwa": "BALTIC CHIEF (Maszoperia)",
             "bandera": "Polska",
-            "kurs": 138,
-            "predkosc": 19.0,
-            "lat": 54.795653355843186,
-            "lon": 19.312611208474884
+            "kurs": 246,
+            "predkosc": 21.8,
+            "lat": 54.5510320764118,
+            "lon": 19.097051778893743
         },
         {
-            "nazwa": "MAERSK MC-KINNEY",
+            "nazwa": "MAERSK MC-KINNEY (Commercial)",
             "bandera": "Dania",
-            "kurs": 26,
-            "predkosc": 15.7,
-            "lat": 1.103886587641556,
-            "lon": 103.91911360761505
+            "kurs": 237,
+            "predkosc": 11.9,
+            "lat": 1.1471299031557192,
+            "lon": 103.60927428440915
         },
         {
-            "nazwa": "USS GERALD FORD",
+            "nazwa": "USS GERALD FORD (Lotniskowiec)",
             "bandera": "USA",
-            "kurs": 252,
-            "predkosc": 12.9,
-            "lat": 36.83974403908907,
-            "lon": -76.33489071149884
+            "kurs": 312,
+            "predkosc": 14.4,
+            "lat": 36.89458883557342,
+            "lon": -76.2129948332555
         }
     ],
     "incydenty": []
