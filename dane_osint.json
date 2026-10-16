@@ -3,42 +3,42 @@
         {
             "nazwa": "MSC AMSTERDAM",
             "bandera": "Panama",
-            "kurs": 230,
-            "predkosc": 12.0,
-            "lat": 35.23326109373855,
-            "lon": 15.41410195443849
+            "kurs": 357,
+            "predkosc": 20.2,
+            "lat": 35.087843118605335,
+            "lon": 15.138970597763905
         },
         {
             "nazwa": "EVER GIVEN",
             "bandera": "Panama",
-            "kurs": 43,
-            "predkosc": 15.8,
-            "lat": 30.149917282022137,
-            "lon": 32.63948762329471
+            "kurs": 104,
+            "predkosc": 16.1,
+            "lat": 29.793018625456327,
+            "lon": 32.703939753506624
         },
         {
             "nazwa": "BALTIC CHIEF",
             "bandera": "Polska",
-            "kurs": 326,
-            "predkosc": 19.7,
-            "lat": 54.48120519738713,
-            "lon": 18.83641035832341
+            "kurs": 138,
+            "predkosc": 19.0,
+            "lat": 54.795653355843186,
+            "lon": 19.312611208474884
         },
         {
             "nazwa": "MAERSK MC-KINNEY",
             "bandera": "Dania",
-            "kurs": 107,
-            "predkosc": 15.8,
-            "lat": 0.921503087564583,
-            "lon": 103.46765606504805
+            "kurs": 26,
+            "predkosc": 15.7,
+            "lat": 1.103886587641556,
+            "lon": 103.91911360761505
         },
         {
             "nazwa": "USS GERALD FORD",
             "bandera": "USA",
-            "kurs": 169,
-            "predkosc": 12.5,
-            "lat": 36.55198064958529,
-            "lon": -75.97511901799554
+            "kurs": 252,
+            "predkosc": 12.9,
+            "lat": 36.83974403908907,
+            "lon": -76.33489071149884
         }
     ],
     "incydenty": []
