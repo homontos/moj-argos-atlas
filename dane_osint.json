@@ -3,42 +3,42 @@
         {
             "nazwa": "MSC AMSTERDAM (Kontenerowiec)",
             "bandera": "Panama",
-            "kurs": 230,
-            "predkosc": 12.2,
-            "lat": 35.1335528374656,
-            "lon": 15.105806487264507
+            "kurs": 127,
+            "predkosc": 12.3,
+            "lat": 35.11679496616877,
+            "lon": 15.128267360357947
         },
         {
             "nazwa": "EVER GIVEN (Cargo)",
             "bandera": "Panama",
-            "kurs": 190,
-            "predkosc": 20.8,
-            "lat": 29.871143028974465,
-            "lon": 32.54961947661654
+            "kurs": 334,
+            "predkosc": 18.2,
+            "lat": 29.969362591732832,
+            "lon": 32.546759117047124
         },
         {
             "nazwa": "BALTIC CHIEF (Maszoperia)",
             "bandera": "Polska",
-            "kurs": 41,
-            "predkosc": 21.5,
-            "lat": 54.53750078431403,
-            "lon": 19.116848166480473
+            "kurs": 19,
+            "predkosc": 13.0,
+            "lat": 54.5200138462781,
+            "lon": 19.094740474653197
         },
         {
             "nazwa": "MAERSK MC-KINNEY (Commercial)",
             "bandera": "Dania",
-            "kurs": 203,
-            "predkosc": 14.0,
-            "lat": 1.1762737554504346,
-            "lon": 103.71113725664767
+            "kurs": 248,
+            "predkosc": 10.5,
+            "lat": 1.1798047212301952,
+            "lon": 103.6175698428041
         },
         {
             "nazwa": "USS GERALD FORD (Lotniskowiec)",
             "bandera": "USA",
-            "kurs": 279,
-            "predkosc": 19.5,
-            "lat": 36.7741991121192,
-            "lon": -76.13569211533101
+            "kurs": 203,
+            "predkosc": 18.4,
+            "lat": 36.75291397558307,
+            "lon": -76.21440585949081
         }
     ],
     "incydenty": []
